@@ -1,15 +1,8 @@
-# Red-envelopes-Solitaire
-##背景
-	现在在微信或者QQ上流行着一种红包接龙的游戏，对此游戏进行各种模拟个人收入并分析游
-	戏公平性。
-##游戏规则
-- 每个红包内塞入一定金额的钱，只能分给特定个人数的人
-- 红包先抢先得，抢到的人分的一定的随机金额(所有人的总净额为塞入的钱)
-- 抢到红包的内金额最大的发下一个红包，形成接龙
-
-##红包类实现
-
-```cpp
+#include<iostream>
+#include<cstdio>
+#include<cstdlib>
+#include<algorithm>
+using namespace std;
 class Packet
 {
 private:
@@ -62,15 +55,3 @@ double Packet::GetPrecent()
     return (double)Rand/Max;
 }
 
-```
-基本借鉴[程鹏的回答](http://www.zhihu.com/question/22625187)
-
-##情形分析
-###情形一
-|红包获得情形|个人策略|环境|
-|----------|-------|---|
-|有抢必得|强取红包|与个人策略相同|
-
-
-	
-	
