@@ -2,7 +2,9 @@
 #include<cstdio>
 #include<cstdlib>
 #include<algorithm>
+#include<sys/time.h>
 using namespace std;
+int GetTime();
 class Packet
 {
 private:
@@ -18,13 +20,13 @@ Packet::Packet(double M,int Q)
 {
     Money=M;
     Quota=Q;
-    srand((unsigned)time(NULL));
+    srand(GetTime());
 }
 void Packet::SendPacket(int M,int Q)
 {
     Money=M;
     Quota=Q;
-    srand((unsigned)time(NULL));
+    srand(GetTime());
 }
 double Packet::GetMoney()
 {
@@ -54,4 +56,9 @@ double Packet::GetPrecent()
     Rand=Rand%Max;
     return (double)Rand/Max;
 }
-
+int GetTime()
+{
+    struct timeval Now;
+    gettimeofday(&Now,NULL);
+    return 1000000*Now.tv_sec+Now.tv_usec;
+}
