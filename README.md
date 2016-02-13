@@ -10,6 +10,8 @@
 ##红包类实现
 
 ```cpp
+
+int GetTime();
 class Packet
 {
 private:
@@ -20,18 +22,20 @@ public:
     void SendPacket(int M,int Q);
     double GetMoney();
     double GetPrecent();
+    double GetLeftMoney();
+    int GetLeftQuota();
 };
 Packet::Packet(double M,int Q)
 {
     Money=M;
     Quota=Q;
-    srand((unsigned)time(NULL));
+    srand(GetTime());
 }
 void Packet::SendPacket(int M,int Q)
 {
     Money=M;
     Quota=Q;
-    srand((unsigned)time(NULL));
+    srand(GetTime());
 }
 double Packet::GetMoney()
 {
@@ -61,6 +65,21 @@ double Packet::GetPrecent()
     Rand=Rand%Max;
     return (double)Rand/Max;
 }
+int GetTime()
+{
+    struct timeval Now;
+    gettimeofday(&Now,NULL);
+    return 1000000*Now.tv_sec+Now.tv_usec;
+}
+double Packet::GetLeftMoney()
+{
+    return Money;
+}
+int  Packet::GetLeftQuota()
+{
+    return Quota;
+}
+
 
 ```
 基本借鉴[程鹏的回答](http://www.zhihu.com/question/22625187)
@@ -297,7 +316,69 @@ double Packet::GetPrecent()
 	在这种情况下，与上种情况并没有什么改变。
 	
 ###情形四
+|红包获得情形|个人策略|环境|抢的顺序|实验代码|
+|----------|-------|---|-------|------|
+|随机抢得红包|当剩下的红包平均份额小于当前最大值|其它人抢取红包|随机|Game_3.cpp|
+
+####参数1
+|参与人数|每人初始资金|红包金额|红包人数|游戏轮数|
+|------|-----------|------|-------|------|
+|10|100|10|5|1000|
+
+#####实验结果
+######第一次
+	第1个人还有343.28元
+	第2个人还有160.88元
+	第3个人还有128.62元
+	第4个人还有-37.76元
+	第5个人还有104.19元
+	第6个人还有11.66元
+	第7个人还有20.11元
+	第8个人还有66.04元
+	第9个人还有72.05元
+	第10个人还有130.93元 
 	
+######第二次
+	第1个人还有237.14元
+	第2个人还有47.07元
+	第3个人还有148.24元
+	第4个人还有-51.81元
+	第5个人还有246.49元
+	第6个人还有-0.05元
+	第7个人还有103.76元
+	第8个人还有11.48元
+	第9个人还有235.49元
+	第10个人还有22.19元 	
+######第三次	
+	第1个人还有312.25元
+	第2个人还有107.03元
+	第3个人还有0.93元
+	第4个人还有55.09元
+	第5个人还有17.81元
+	第6个人还有67.25元
+	第7个人还有80.7元
+	第8个人还有162.18元
+	第9个人还有8.02元
+	第10个人还有188.74元 
+####分析
+略施策略，稳赚不赔
+##总结
+根据以上情况下：
+
+- 如果你每次抢得红包的次序都靠后的话，还是放弃吧，你坑定会亏得。
+- 如果你能看到领的情况下，看到已经有几个叫大的红包被领的话，快下手吧
+- 在红包接龙中抢不到也不要伤心，放心，发不了财。
+
+##写在最后
+最近在亲戚群中实践了一下，10元/7包，80轮赚了20吧，基本只是保持在中间领，能看别人领的情况下还是比较少的。
+
+欢迎大家在我的基础上进行更多探究。。。
+
+如有写的不对的地方，请多指教！
+
+
+
+
 
 
 

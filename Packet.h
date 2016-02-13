@@ -15,6 +15,8 @@ public:
     void SendPacket(int M,int Q);
     double GetMoney();
     double GetPrecent();
+    double GetLeftMoney();
+    int GetLeftQuota();
 };
 Packet::Packet(double M,int Q)
 {
@@ -62,3 +64,12 @@ int GetTime()
     gettimeofday(&Now,NULL);
     return 1000000*Now.tv_sec+Now.tv_usec;
 }
+double Packet::GetLeftMoney()
+{
+    return Money;
+}
+int  Packet::GetLeftQuota()
+{
+    return Quota;
+}
+
